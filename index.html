@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Science Reading Download</title>
+</head>
+<body>
+<div style="position: absolute;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    height: 600px;
+    overflow-y: scroll;">
+	<canvas id="canvas" width="734" height="1010"></canvas>
+	<br/>
+	<input type="text" id="page">
+	<button onclick="getPage()">获取页面</button>
+	<button onclick="downloadPage()">下载文件</button>
+</div>
+
+<script>
+	const c = document.getElementById("canvas");
+	const ctx = c.getContext("2d");
+	const page = document.getElementById("page");
+	
+	function downloadPage() {
+		let data = c.toDataURL("image/png");
+		let save_link = document.createElement("a");
+		save_link.href = data;
+		save_link.download = document.getElementById("page").value + ".png";
+		save_link.click();
+		page.value = parseInt(page.value) + 1;
+		getPage();
+	}
+	
+	function getPage() {
+		ctx.clearRect(0,0,800,600);
+		// let url="http://159.226.241.32:8093/asserts/6e58bb9e427a4860a5cfa1b2066ff4b0/image/0/tiles/100/400/1/1?accessToken=accessToken"
+		let url = "http://159.226.241.32:8093/asserts/6e58bb9e427a4860a5cfa1b2066ff4b0/image/" + document.getElementById("page").value + "/tiles/100/400/";
+		drawImg(url + "1/1?accessToken=accessToken", 0, 0);
+		drawImg(url + "1/2?accessToken=accessToken", 0, 400);
+		drawImg(url + "1/3?accessToken=accessToken", 0, 800);
+		drawImg(url + "2/1?accessToken=accessToken", 400, 0);
+		drawImg(url + "2/2?accessToken=accessToken", 400, 400);
+		drawImg(url + "2/3?accessToken=accessToken", 400, 800);
+	}
+	
+	function drawImg(url, x, y) {
+		console.log(url);
+		let img = new Image;
+		img.onload = function () {
+			ctx.drawImage(this, x, y);
+		};
+		img.src = url;
+	}
+
+</script>
+</body>
+</html>

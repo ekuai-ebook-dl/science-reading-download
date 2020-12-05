@@ -3,7 +3,7 @@ let config = {
 	filenameFront: "",
 	filenameBack: "",
 	errMax: 3,
-};//再此修改配置
+};//在此修改配置
 let href = document.location.href;
 let urlArr = href.split("/");
 let ip = urlArr[2];

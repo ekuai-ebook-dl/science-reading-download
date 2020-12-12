@@ -36,7 +36,7 @@ let auto = document.getElementById("auto");
 let size = document.getElementById("size");
 let error = 0;
 
-img.onload = function () {
+img.onload = () => {
 	size.innerHTML = img.offsetWidth + "*" + img.offsetHeight;
 };
 

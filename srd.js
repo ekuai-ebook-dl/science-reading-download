@@ -12,7 +12,7 @@ let div = document.createElement("div");
 div.innerHTML = `
 	<div  style="
 		position: absolute;
-	    z-index: 10001;
+	    z-index: 99;
 	    left: 0;
 	    top: 0;
 	    height: 600px;
@@ -79,10 +79,13 @@ function downloadPage() {
 	save_link.href = img.src;
 	save_link.download = config.filenameFront + start.value + config.filenameBack + ".png";
 	save_link.click();
-	if (auto.checked && parseInt(start.value) >= parseInt(end.value)) {
+	let endPage = parseInt(end.value) ? parseInt(end.value) : 0;
+	if (auto.checked && parseInt(start.value) >= endPage) {
 		console.info("遍历完毕");
 	} else {
 		start.value = parseInt(start.value) + 1;
-		setTimeout(getPage, config.interval);
+		if (auto.checked) {
+			setTimeout(getPage, config.interval);
+		}
 	}
 }

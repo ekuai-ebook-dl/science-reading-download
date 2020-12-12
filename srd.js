@@ -36,6 +36,10 @@ let auto = document.getElementById("auto");
 let size = document.getElementById("size");
 let error = 0;
 
+img.onload = function () {
+	size.innerHTML = img.offsetWidth + "*" + img.offsetHeight;
+};
+
 function getPage() {
 	let page = start.value;
 	let url = `http://${ip}/asserts/${hash}/image/${page}/100?accessToken=accessToken&formMode=true`;
@@ -56,9 +60,6 @@ function getPage() {
 				error = 0;
 				let blob = this.response;
 				window.URL.revokeObjectURL(img.src);
-				img.onload = function () {
-					size.innerHTML = img.offsetWidth + "*" + img.offsetHeight;
-				};
 				img.src = window.URL.createObjectURL(blob);
 				console.log("加载第", page, "页", "成功", type);
 				if (auto.checked) {

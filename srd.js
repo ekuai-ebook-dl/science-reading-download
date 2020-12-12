@@ -12,16 +12,19 @@ let div = document.createElement("div");
 div.innerHTML = `
 	<div  style="
 		position: absolute;
-	    z-index: 99;
+	    z-index: 10001;
 	    left: 0;
 	    top: 0;
 	    height: 600px;
 	    overflow-y: scroll;
-	    background-color: white;">
+	    background-color: white;
+	    max-width: 60%;">
 		<input type="number" id="page-start" value="${urlArr[6]}">-<input type="number" id="page-end">
 		<button onclick="getPage()">获取页面</button>
 		<button onclick="downloadPage()">下载文件</button>
 		<input type="checkbox" id="auto"/>自动模式
+		<br/>
+		<span id="size"></span>
 		<br/><img id="image"  alt="" src="${href}"/>
 	</div>
 `;
@@ -30,6 +33,7 @@ let start = document.getElementById("page-start");
 let end = document.getElementById("page-end");
 let img = document.getElementById("image");
 let auto = document.getElementById("auto");
+let size = document.getElementById("size");
 let error = 0;
 
 function getPage() {
@@ -52,6 +56,9 @@ function getPage() {
 				error = 0;
 				let blob = this.response;
 				window.URL.revokeObjectURL(img.src);
+				img.onload = function () {
+					size.innerHTML = img.offsetWidth + "*" + img.offsetHeight;
+				};
 				img.src = window.URL.createObjectURL(blob);
 				console.log("加载第", page, "页", "成功", type);
 				if (auto.checked) {

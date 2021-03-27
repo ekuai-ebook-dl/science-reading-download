@@ -42,7 +42,7 @@ img.onload = () => {
 
 function getPage() {
 	let page = start.value;
-	let url = `http://${ip}/asserts/${hash}/image/${page}/100?accessToken=accessToken&formMode=true`;
+	let url = `https://${ip}/asserts/${hash}/image/${page}/100?accessToken=accessToken&formMode=true`;
 	let xhr = new XMLHttpRequest();
 	xhr.responseType = "blob";
 	xhr.onload = function () {
